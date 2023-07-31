@@ -1,3 +1,9 @@
 #!/bin/bash
 echo "Installed python versions"
 ls /usr/bin/python*\.?
+
+echo
+echo "Current python(3) version" && \
+# echo "python: " 
+echo $(echo $(python --version) python: "python" )
+echo "python3: " $(echo $(python3 --version))
