@@ -1,0 +1,2 @@
+#!/bin/bash
+ls $(brew --prefix oh-my-posh)/themes

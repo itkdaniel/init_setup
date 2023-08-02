@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+  echo "No theme name provided. Usage: omp-usetm [theme_name]"
+  exit 1
+fi
+uhost="$(whoami)@$(hostname)"
+omp_path="$(brew --prefix oh-my-posh)"
+theme_path="$omp_path/themes"
+echo -e "\e[0;33mCopying \e[0m'\e[0;36m$1\e[0m' from \e[0;34;42m$omp_path/themes\e[0m to \e[0;34;42m\$HOME\e[0m"
+echo -e "$uhost:\e[0;36m~\e[0m$ cp $omp_path/themes/$1 \$HOME"
+echo -e "\e[0;33mCopied \e[0m'\e[0;36m$1\e[0m' to \e[0;34;42m\$HOME\e[0m"
+add_theme="echo \"eval \\\"\$(oh-my-posh init bash --config ~/$1)\\\"\" >> ~/.bash_profile" 
+#echo "eval \"\$(oh-my-posh init bash --config ~/$1)\"" >> ~/.bash_profile
+echo -e "\e[0;33mConfiguring \e[0;36m.profile\e[0m or \e[0;36m.bash_profile \e[0mto use theme: '\e[0;36m$1\e[0m'\e[0m"
+echo -e "$uhost:\e[0;36m~\e[0m$ $add_theme\e[0m"
+echo "DONE"
+exit 0
