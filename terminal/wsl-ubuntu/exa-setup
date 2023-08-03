@@ -13,6 +13,10 @@
 
 uhost="$(whoami)@$(hostname)"
 
+echo "sudo apt update && sudo apt upgrade"
+sudo apt update && sudo apt upgrade
+echo
+
 echo "Exa (modern replacement for ls) Installation"
 echo "############################################"
 echo
@@ -20,27 +24,35 @@ echo
 # install rust
 echo "installing rust..."
 echo "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
 echo
 
 # install cmake
 echo "installing cmake..."
-echo "$uhost:~$ test ! -d ~/cmake && ~/mkdir cmake && cd ~/cmake"
-echo "$uhost:~$ wget https://github.com/Kitware/CMake/releases/download/v3.27.1/cmake-3.27.1.tar.gz"
-echo "$uhost:~$ tar -zxvf cmake-3.27.1.tar.gz && cd cmake-3.27.1/"
-echo "$uhost:~$ sudo ./bootstrap"
-echo "$uhost:~$ sudo make && sudo make install"
+#echo "$uhost:~$ test ! -d ~/cmake && mkdir  ~/cmake"
+#echo "$uhost:~$ test -d ~/cmake && cd ~/cmake"
+#echo "$uhost:~$ test ! -e cmake-3.27.1.tar.gz && wget https://github.com/Kitware/CMake/releases/download/v3.27.1/cmake-3.27.1.tar.gz"
+#echo "$uhost:~$ test -e cmake-3.27.1.tar.gz && tar -zxvf cmake-3.27.1.tar.gz"
+#echo "$uhost:~$ test -d cmake-3.27.1 && cd cmake-3.27.1/"
+#echo "$uhost:~$ sudo ./bootstrap"
+#echo "$uhost:~$ sudo make && sudo make install"
+echo "$uhost:~$ sudo apt install cmake -y"
+sudo apt install cmake -y
 echo "$uhost:~$ cmake --version"
-echo "$uhost:~$ cd ~"
+# echo "$uhost:~$ cd ~"
 echo
 
 # install libgit2
 echo "installing libgit2..."
 echo "$uhost:~$ brew install libgit2"
+brew install libgit2
 echo
 
 # install either full exa or without default features if unable to install libgit2 and cmake
 echo "installing exa..."
-echo "$uhost:~$ cargo install exa || cargo install --no-default-features exa"
+echo "$uhost:~$ cargo install exa"
+cargo install exa
 echo
 
 echo "DONE"

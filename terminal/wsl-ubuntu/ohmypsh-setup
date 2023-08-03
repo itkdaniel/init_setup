@@ -9,18 +9,34 @@ uhost="$(whoami)@$(hostname)"
 # brew install gcc
 # brew install jandedobbeleer/oh-my-posh/oh-my-posh
 
+echo "Oh-My-Posh Insallation"
+echo "######################"
+
 # install Homebrew for linux using below command
 echo "$uhost:~$ /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # add homebrew to path and either .bash_profile or .profile
-echo "$uhost:~$ (echo; echo 'eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'\") >> /home/itkdaniel/.bash_profile"
 echo "$uhost:~$ eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\""
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || echo "'brew shellenv' already executed"
+echo "$uhost:~$ (echo; echo 'eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'\") >> /home/itkdaniel/.bash_profile"
+test -r ~/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bash_profile
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
+
+# add homebrew to path and either .bash_profile or .profile
+#echo "$uhost:~$ (echo; echo 'eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'\") >> /home/itkdaniel/.bash_profile"
+#(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/itkdaniel/.bash_profile
+#echo "$uhost:~$ eval \"\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\""
+#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # recommended install gcc
 echo "$uhost:~$ brew install gcc"
+brew install gcc
 
 # install oh-my-posh
 echo "$uhost:~$ brew install jandedobbeleer/oh-my-posh/oh-my-posh"
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
 
 echo "DONE"
 
