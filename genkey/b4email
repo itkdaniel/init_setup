@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ "$#" -eq 1 ]; then
+    beforemail="$(echo "$1" | grep -i ".*\w*@[a-z]*mail.com.*" | awk -e '$1 ~ /\s?.*\w*@[a-z]*mail.com/ {print $0}' | awk -e 'gsub(/@+\w*mail.com/, "")')"
+    test ! -z "$beforemail" && echo "$beforemail" && exit 0 || exit 1
+fi
+#test ! -z "$beforemail" && echo "$beforemail" && exit 0 || exit 1
+
+if [ "$#" -eq 2 ]; then
+    user="$(echo "$2" | grep -ie "[\w*\d*]*[\s?-?_?]*\d*\w*" | ( read p1; echo "$p1" ))"
+fi
+# echo \.some\$\(3\)-data34 | grep -ie "[[^:punct:]]*[[:print:]]" | ( read _p1  ; echo "$_p1" )
+# .some$(3)-data34
+if [ "$#" -eq 2 -a -z "$user" ]; then
+	user="$(echo "$2" | grep -ie "(\w*\d*.*)|([[^:punct:]]*[[:print:]])" | ( read _x1; echo "$_x1" ))"
+	echo "$user"
+fi
+echo "$user"
+
+if [ -z "$beforemail" -a -z "$user" ]; then
+    echo "Incorrect usage. Usage: b4email [\$ARG1, [\$ARG2]]"
+    echo "Required: At least email"
+    exit 1
+fi
+
+exit 0

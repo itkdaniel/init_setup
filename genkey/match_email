@@ -1,0 +1,5 @@
+#!/bin/bash
+if [ "$#" -eq 1 ]; then
+	email="$(echo "$1" | grep -i "[\s\w\d]*[\w\d\._-]*\w*\d*@[a-z0-9_-]*mail.com.*" | awk -e '$1 ~ /\s?\w*\d*@{1}(.*\w*\d*)mail.com$/ {print $0}')"
+fi
+test ! -z $email && echo "$email" && exit 0 || exit 1

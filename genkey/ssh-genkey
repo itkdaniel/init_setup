@@ -1,0 +1,52 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "No email or username provided. Usage: ssh-genkey [ARG1..2?]"
+    exit 1
+fi
+ARG1="$1"
+if [ "$#" -eq 2 ]; then
+    ARG2="$2"
+fi
+if [ "$#" -gt 2 ]; then
+    echo "Incorrect usage. Usage accepts at most 2 arguments"
+    exit 1
+fi
+
+if [ "$#" -eq 2 ]; then
+    #test ! -z "$1" && echo "$1" | grep -i ".*\w*@[a-z]mail.com.*" | ( read p1; test ! -z $p1 && ssh-keygen -t ed25519 -C "$1" -f ~/.ssh/$2 )
+    ARG1="$(~/./match_email $1)"
+fi
+if [[ -z "$ARG1" && -n "$2" ]]; then
+    echo "Incorrect usage \$ARG1 is not an email. Usage: ssh-genkey [\$EMAIL, [\$USER]?]"
+    exit 1
+fi
+if [[ -n "$ARG1" && "$#" -eq 2 ]]; then
+    ARG2="$(~/./b4email $1 $2)"
+fi
+if [[ -n "$ARG1" && "$#" -eq 1 ]]; then
+    ARG2="$(~/./b4email $ARG1)"
+fi
+if [ -z "$ARG2" ]; then
+    echo "Incorrect usage. \$ARG2 should contain only alphanumerics. Usage: ssh-genkey [\$EMAIL, [\$USER]]"
+   exit 1
+fi
+if [[ -n "$ARG1" && -n "$ARG2" ]]; then
+    if [ -r ~/.ssh/"$ARG2"_key ]; then
+        echo "$ARG2"_key already exists. Try again
+	exit 1
+    fi
+    ssh-keygen -t ed25519 -C "$ARG1" -f ~/.ssh/"$ARG2"_key
+fi
+if [[ "$#" -eq 1 && -n "$ARG1" ]]; then
+    xclip -sel clip < ~/.ssh/"$ARG1"_key.pub
+fi
+if [[ "$#" -eq 2 && -n "$ARG2" ]]; then
+    xclip -sel clip < ~/.ssh"$ARG2"_key.pub
+fi
+if [ -r ~/.ssh/"$ARG2"_key ]; then
+    echo "Copied key to clipboard. Ready to paste whereever necessary"
+    echo "Success"
+    exit 0
+fi
+echo "Failed" && exit 1
