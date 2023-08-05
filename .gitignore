@@ -1,5 +1,6 @@
 temp*
 venv/
 */*venv/*
+python/venv*
 rc-tokens
 terminal/wsl-ubuntu/rust-readme
