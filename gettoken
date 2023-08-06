@@ -1,0 +1,8 @@
+#!/bin/bash 
+. ~/init-setup-gits/itkdaniel-git/init-setup/python/venv3.6/bin/activate 
+while [ -z "$VIRTUAL_ENV"  ]; do 
+   sleep 0.1 
+done 
+echo Python Virtual Environment started 
+python3 ~/init-setup-gits/itkdaniel-git/init-setup/detokenize.py 
+deactivate 

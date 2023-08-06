@@ -1,6 +1,9 @@
-tokencode: b'gAAAAABkyxXFv9BDrOHFIbWydIsquUxNpflKwNdyeXp2ftB5qRmaQjaKWWiDgaMun8X744V0X5GiveYjKUXAy9udrF6-E0X1D_xYHO9aUUfss_zmhU6cVn3mENc9DGHWnM6MFmL7zQBC'
-key: b'bAGn-MCoI98uIsdf9HG5nRGybdHORnzrrSTK7pCGdO4='
-encoding: utf-8
+{'tokencode': b'gAAAAABkyxXFv9BDrOHFIbWydIsquUxNpflK' \
+                'wNdyeXp2ftB5qRmaQjaKWWiDgaMun8X744V0X5' \
+                'GiveYjKUXAy9udrF6-E0X1D_xYHO9aUUfss_zmhU' \
+                '6cVn3mENc9DGHWnM6MFmL7zQBC', \
+'key': b'bAGn-MCoI98uIsdf9HG5nRGybdHORnzrrSTK7pCGdO4=',
+'encoding': 'utf-8'}
 
 # Decryption process:
    1. pip install cryptography
@@ -8,3 +11,14 @@ encoding: utf-8
    3. fern = fern(key)
    4. decrypted = fern.decrypt(tokencode).decode('utf-8')
 decrypted value is original token.
+# if run into issues with missing dependencies:
+# try upgrading pip, install/update rust
+# if issues with rust: sudo apt-get install dev dependencies
+sudo apt-get update && sudo apt-get upgrade
+# build and install rust toolchain - for ubuntu
+sudo apt-get install build-essential libssl-dev libffi-dev \
+    python3-dev cargo pkg-config
+# now try installing cryptography as it depends on rust
+# if run into issues, try installing rust as documented by https://www.rust-lang.org/tools/install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+pip install cryptography
