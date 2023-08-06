@@ -1,6 +1,4 @@
 tokencode: b'gAAAAABkyxXFv9BDrOHFIbWydIsquUxNpflKwNdyeXp2ftB5qRmaQjaKWWiDgaMun8X744V0X5GiveYjKUXAy9udrF6-E0X1D_xYHO9aUUfss_zmhU6cVn3mENc9DGHWnM6MFmL7zQBC'
-key: b'bAGn-MCoI98uIsdf9HG5nRGybdHORnzrrSTK7pCGdO4='
-encoding: utf-8
 
 # Decryption process:
    1. pip install cryptography
