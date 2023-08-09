@@ -38,6 +38,8 @@ brew install gcc
 echo "$uhost:~$ brew install jandedobbeleer/oh-my-posh/oh-my-posh"
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
 
+oh-my-posh --version
+
 echo "DONE"
 
 exit 0

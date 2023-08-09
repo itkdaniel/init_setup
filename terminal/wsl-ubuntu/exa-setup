@@ -55,6 +55,26 @@ echo "$uhost:~$ cargo install exa"
 cargo install exa
 echo
 
+echo "exa-wrapper for ls switches:"
+echo "    SSH: git@gist.github.com:74db77c4f6404dd1f975bd6f048b86f8.git"
+echo "    HTTP: https://gist.github.com/74db77c4f6404dd1f975bd6f048b86f8.git"
+echo "Run the following to setup exa-wrapper:"
+echo "tee ~/.bash_aliases --append <<'EOF'" && \
+    echo "if command -v exa >/dev/null; then" && \
+    echo "alias ls=\"~/exa-wrapper/exa-ls/exa-wrapper.sh\"" && \
+    echo "else" && \
+    echo "alias ls=\"command ls $LS_OPTIONS\"" && \
+    echo "fi"
+    echo "EOF"
+echo "tee ~/.profile --append <<'EOF'" && \
+    echo "if [ -f ~/.bash_aliases ]; then" && \
+    echo ". ~/.bash_aliases" && \
+    echo "fi" && \
+    echo && \
+    echo "EOF"
+
+exa --version
+
 echo "DONE"
 
 exit 0
