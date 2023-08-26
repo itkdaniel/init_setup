@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	printf "\033[0;31mIncorrect usage. Usage: init-tm [THEME_NAME]\n"
+	exit 1
+fi
+
+test ! -d ~/current-omp-theme && mkdir ~/current-omp-theme && test ! -f ~/current-omp-theme/"$1".omp.json && cp $(brew --prefix oh-my-posh)/themes/"$1".omp.json ~/current-omp-theme/ || printf "\033[0;33mFile already exists in location\n"
+
+echo "Initializing bash theme..."
+echo "Run below command to initialize omp bash session:"
+#eval $(oh-my-posh init bash --config ~/current-omp-theme/"$1".omp.json)
+echo "eval \"\$(oh-my-posh init bash --config \$(brew --prefix oh-my-posh)/themes/$1.omp.json)\""
+printf "\033[0;32mDONE\n"
+exit 0
