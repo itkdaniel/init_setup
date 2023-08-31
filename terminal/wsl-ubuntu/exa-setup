@@ -13,8 +13,8 @@
 
 uhost="$(whoami)@$(hostname)"
 
-echo "sudo apt update && sudo apt upgrade"
-sudo apt update && sudo apt upgrade
+echo "sudo apt update"
+sudo apt update
 echo
 
 echo "Exa (modern replacement for ls) Installation"
