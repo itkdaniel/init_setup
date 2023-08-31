@@ -1,0 +1,17 @@
+mUser=newuser
+adduser $mUser
+# enter password
+# press enter for default profile values
+# enter Y to confirm values
+# add user to sudoers
+usermod -aG sudo $mUser
+# test newuser sudo access
+su - $mUser
+sudo ls -la /root
+# optional set default distro user in wsl.conf
+# option 1
+echo -e "[user]\ndefault=$myUsername" >> /etc/wsl.conf
+# option 2
+# Enter below command in cmd or pwsh to set default distro user
+ubuntu config --default-user <username>
+
