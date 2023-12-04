@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Configuring oh-my-posh theme..."
 if [ -z "$1" ]; then
 	printf "\033[0;31mIncorrect usage. Usage: init-tm [THEME_NAME]\n"
 	exit 1

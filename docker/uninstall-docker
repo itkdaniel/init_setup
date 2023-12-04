@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages
+echo "Uninstalling docker engine, cli, containerd, compose packages..."
+sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+
+# Delete all images, containers, volumes
+echo -e "TODO:\n\tDeleting all docker images, containers and volumes..."
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd

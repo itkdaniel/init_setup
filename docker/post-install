@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# configure non-root user access
+echo -e "Next steps:\n\tConfiguring non-root user access..."
+if test ! -z $(command -v docker); then
+  USER=$(whoami)
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+  newgrp docker
+  echo "Added $USER to docker group"
+  echo "DONE" && exit 0
+fi
+
+echo "ERROR" && exit 1
+
