@@ -1,0 +1,70 @@
+#!/bin/sh
+
+uhost="$(whoami)@$(hostname)"
+
+## Method 1 (Ubuntu-22.04 -> nnn v4.3.1)
+## Install from Ubuntu apt package repo
+## update package repos
+#sudo apt update
+## install dependencies
+#sudo apt-get install -y libncurses-dev libreadline-dev pkg-config 
+## add nnn to apt sources
+#echo 'deb http://download.opensuse.org/repositories/home:/stig124:/nnn/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:stig124:nnn.list
+## get and validate gpg key
+#curl -fsSL https://download.opensuse.org/repositories/home:stig124:nnn/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_stig124_nnn.gpg > /dev/null
+## update apt repos to get nnn package
+#sudo apt update
+## install nnn
+#sudo apt install nnn
+
+## Method 2 (latest release)
+## optional install from homebrew
+#echo "Updating apt repository..."
+#echo "$uhost:~$ sudo apt update"
+#sudo apt update
+#echo "Updating brew repository..."
+#echo "$uhost:~$ brew update"
+#brew update
+## install dependencies
+#echo "Installing dependencies..."
+#echo "$uhost:~$ brew install gnu-sed pkg-config ncurses readline"
+#brew install gnu-sed
+#brew install pkg-config
+#brew install ncurses
+#brew install readline
+## install nnn
+#echo "Installing nnn..."
+#echo "$uhost:~$ brew install nnn"
+#brew install nnn
+
+
+## install build from source
+echo "Updating apt repository..."
+echo "$uhost:~$ sudo apt-get update"
+sudo apt-get update
+## install dependencies
+echo "Installing dependencies..."
+echo "$uhost:~$ sudo apt-get install -y pkg-config libncurses-dev libreadline-dev"
+sudo apt-get install -y pkg-config libncurses-dev libreadline-dev
+## clone into git repo
+echo "Cloning into nnn git repo..."
+echo "$uhost:~$ test ! -d ~/git-repos/nnn && mkdir -p ~/git-repos/nnn"
+echo "$uhost:~$ git clone https://github.com/jarun/nnn.git ~/git-repos/nnn"
+test ! -d ~/git-repos/nnn && mkdir -p ~/git-repos/nnn
+git clone https://github.com/jarun/nnn.git ~/git-repos/nnn
+## make nnn with O_NERD flag for icons
+echo "Make installing nnn..."
+echo "$uhost:~$ cd ~/git-repos/nnn/nnn/"
+cd ~/git-repos/nnn/nnn/
+echo "$uhost:~$ sudo make O_NERD=1" 
+sudo make O_NERD=1
+## Copy nnn executable into a location in $PATH 
+## e.g /usr/local/bin, /usr/bin, /bin, etc...
+echo "Copying to location in \$PATH"
+echo "$uhost:~$ sudo cp nnn /usr/local/bin"
+sudo cp nnn /usr/local/bin
+cd ~
+echo -e \
+	"Next steps:\n" \
+        "\t1. Test nnn works"
+
