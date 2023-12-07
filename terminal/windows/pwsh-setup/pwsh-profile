@@ -1,0 +1,46 @@
+## Create $PSStyle if running on a version older than 7.2
+## - Add other ANSI color definitions as needed
+
+if ($PSVersionTable.PSVersion.ToString() -lt '7.2.0') {
+    # define escape char since "`e" may not be supported
+    $esc = [char]0x1b
+    $PSStyle = [pscustomobject]@{
+        Foreground = @{
+            Magenta = "${esc}[35m"
+            BrightYellow = "${esc}[93m"
+        }
+        Background = @{
+            BrightBlack = "${esc}[100m"
+        }
+    }
+}
+
+Set-PSReadLineOption -Colors @{ InlinePrediction = "`e[38;5;25m" }
+Set-PSReadLineOption -Colors @{ ContinuationPrompt = "`e[38;5;11m" }
+Set-PSReadLineOption -Colors @{ Command = "`e[38;5;33m" }
+Set-PSReadLineOption -Colors @{ Number = "`e[38;5;87m" }
+Set-PSReadLineOption -Colors @{ Default = "`e[38;5;199m" }
+Set-PSReadLineOption -Colors @{ Type = "`e[38;5;27m" }
+Set-PSReadLineOption -Colors @{ Member = "`e[38;5;128m" }
+
+$BoldYellow = "`e[38;5;11m"
+$BoldBlue = "`e[38;5;27m"
+$BoldGreen = "`e[38;5;47m"
+
+
+## Customize the prompt
+function prompt {
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = [Security.Principal.WindowsPrincipal] $identity
+    $adminRole = [Security.Principal.WindowsBuiltInRole]::Administrator
+	
+	$user = 'DanielTruong'
+    $prefix = $(if (Test-Path variable:/PSDebugContext) { '[DBG]: ' }
+                elseif ($principal.IsInRole($adminRole)) { "[ADMIN]: " }
+                else { '' })
+	$body = $BoldYellow + "╭──<" + $BoldBlue + "PS " + $env:COMPUTERNAME + $BoldYellow + "> [" + $BoldGreen + $(Get-Location) + $BoldYellow + "] `e[0m"
+    $suffix = $(if ($NestedPromptLevel -ge 1) { '╰──>>' }) + '╰──> '
+    $prefix + $body + "`n" + $BoldYellow + $suffix + "`e[0m"
+}
+
+

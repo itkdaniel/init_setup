@@ -1,0 +1,2 @@
+Set-PSReadLineOption -Colors @{ InlinePrediction = "`e[38;5;238m" }
+Set-PSReadLineOption -Colors @{ InlinePrediction = "`e[38;5;25m" }

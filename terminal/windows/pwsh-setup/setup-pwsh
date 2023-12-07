@@ -1,0 +1,80 @@
+#!/bin/sh
+# https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.3
+# https://github.com/PowerShell/PowerShell/blob/master/docs/building/linux.md
+
+# PowerShell paths
+# $PSHOME is /opt/microsoft/powershell/7/
+PSHOME="/opt/microsoft/powershell/7/"
+echo "PSHOME=$PSHOME"
+# User profiles are read from ~/.config/powershell/profile.ps1
+USERPROFILE="~/.config/powershell/profile.ps1"
+echo "USERPROFILE=$USERPROFILE"
+# Default profiles are read from $PSHOME/profile.ps1
+DEFAULTPROFILES="$PSHOME/profile.ps1"
+echo "DEFAULTPROFILES=$DEFAULTPROFILES"
+# User modules are read from ~/.local/share/powershell/Modules
+USERMODULES="~/.local/share/powershell/Modules"
+echo "USERMODULES=$USERMODULES"
+# Shared modules are read from /usr/local/share/powershell/Modules
+SHAREDMODULES="/usr/local/share/powershell/Modules"
+echo "SHAREDMODULES=$SHAREDMODULES"
+# Default modules are read from $PSHOME/Modules
+DEFAULTMODULES="$PSHOME/Modules"
+echo "DEFAULTMODULES=$DEFAULTMODULES"
+# PSReadLine history is recorded to ~/.local/share/powershell/PSReadLine/ConsoleHost_history.txt
+PSRLHISTORY="~/.local/share/powershell/PSReadLine/ConsoleHost_history.txt"
+echo "PSRLHISTORY=$PSRLHISTORY"
+# The profiles respect PowerShell's per-host configuration, so the default host-specific profiles exists at Microsoft.PowerShell_profile.ps1 in the same locations.
+#
+# PowerShell respects the XDG Base Directory Specification on Linux.
+
+# Source Code:
+# https://github.com/PowerShell/PowerShell/releases/tag/v7.3.7
+# https://github.com/PowerShell/PowerShell/tree/master
+# Direct Download:
+# https://github.com/PowerShell/PowerShell/releases/download/v7.3.7/powershell_7.3.7-1.deb_amd64.deb
+PWSHVERSION="7.3.7"
+
+## Install from package repository
+echo "Installing from package repository..."
+# Update the list of packages
+sudo apt-get update
+# Install pre-requisite packages.
+sudo apt-get install -y wget apt-transport-https software-properties-common
+# Download the Microsoft repository GPG keys
+wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+# Register the Microsoft repository GPG keys
+sudo dpkg -i packages-microsoft-prod.deb
+# Delete the the Microsoft repository GPG keys file
+rm packages-microsoft-prod.deb
+# Update the list of packages after we added packages.microsoft.com
+sudo apt-get update
+# Install PowerShell
+sudo apt-get install -y powershell
+# Start PowerShell
+pwsh
+
+# Installation via Direct Download
+# Install the downloaded package
+#sudo dpkg -i powershell-lts_7.3.7-1.deb_amd64.deb
+# Resolve missing dependencies and finish the install (if necessary)
+#sudo apt-get install -f
+
+## Install from source
+# Clone/download source code
+# https://github.com/PowerShell/PowerShell/releases/tag/v7.3.7
+# https://github.com/PowerShell/PowerShell/tree/master
+
+## Running PowerShell in Docker container
+# By default, PowerShell collects limited telemetry without personally
+# identifiable information to help aid development of future versions of
+# PowerShell. To opt-out of sending telemetry, create an environment
+# variable called POWERSHELL_TELEMETRY_OPTOUT set to a value of 1 before
+# starting PowerShell from the installed location.
+#echo "Starting PowerShell in docker container..."
+#docker run -it -v /var/lib/docker.sock:/var/lib/docker.sock --name pwsh_ninja mcr.microsoft.com/powershell 
+# Remove image when no longer needed
+#docker rmi mcr.microsoft.com/powershell
+# Uninstallation
+# echo "Uninstalling powershell-v$(PWSHVERSION)"
+# sudo apt-get remove powershell

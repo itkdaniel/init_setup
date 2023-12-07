@@ -1,0 +1,5 @@
+Set-PSReadLineOption -Colors @{ Command = "`e[38;5;33m" }
+Set-PSReadLineOption -Colors @{ Number = "`e[38;5;87m" }
+Set-PSReadLineOption -Colors @{ Default = "`e[38;5;199m" }
+Set-PSReadLineOption -Colors @{ Type = "`e[38;5;27m" }
+Set-PSReadLineOption -Colors @{ Member = "`e[38;5;128m" }
